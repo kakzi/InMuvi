@@ -1,4 +1,4 @@
-package com.studio.karya.infootbal
+package com.studio.karya.inmuvi
 
 import org.junit.Test
 

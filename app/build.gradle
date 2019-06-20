@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "com.studio.karya.infootbal"
+        applicationId "com.studio.karya.inmuvi"
         minSdkVersion 17
         targetSdkVersion 28
         versionCode 1

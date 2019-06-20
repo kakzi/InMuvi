@@ -1,4 +1,4 @@
-package com.studio.karya.infootbal
+package com.studio.karya.inmuvi
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
