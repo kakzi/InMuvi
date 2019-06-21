@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.studio.karya.inmuvi.R
-import com.studio.karya.inmuvi.ui.movie.MovieFragment
-import com.studio.karya.inmuvi.ui.tv.TvFragment
+import com.studio.karya.inmuvi.ui.movie.ContentFragment
+import com.studio.karya.inmuvi.ui.movie.ContentFragment.Companion.CONTENT_TYPE
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -30,16 +29,22 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        val bundle = Bundle()
         bottomNav.setOnNavigationItemSelectedListener { item ->
-
             var fragment: Fragment? = null
             when (item.itemId) {
                 R.id.actionMovie -> {
-                    fragment = MovieFragment().newInstance()
+                    bundle.putString(CONTENT_TYPE, "movie")
+                    val movie = ContentFragment().newInstance()
+                    movie.arguments = bundle
+                    fragment = movie
                     headTitle.text = getString(R.string.head_title_movie)
                 }
                 R.id.actionTv -> {
-                    fragment = TvFragment().newInstance()
+                    bundle.putString(CONTENT_TYPE, "tv")
+                    val tv = ContentFragment().newInstance()
+                    tv.arguments = bundle
+                    fragment = tv
                     headTitle.text = getString(R.string.head_title_tv)
                 }
             }
@@ -47,7 +52,6 @@ class HomeActivity : AppCompatActivity() {
             if (fragment != null) {
                 supportFragmentManager
                     .beginTransaction()
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.container, fragment)
                     .commit()
             }

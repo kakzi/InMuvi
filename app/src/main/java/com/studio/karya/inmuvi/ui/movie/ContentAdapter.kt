@@ -13,7 +13,7 @@ import com.studio.karya.inmuvi.data.ContentEntity
 import com.studio.karya.inmuvi.utils.toPx
 import org.jetbrains.anko.find
 
-class MovieAdapter(private val activity: Activity, private val callback: MovieCallback) : RecyclerView.Adapter<Holder>() {
+class MovieAdapter(private val activity: Activity) : RecyclerView.Adapter<Holder>() {
 
     private val mContent: MutableList<ContentEntity> = mutableListOf()
 
@@ -43,7 +43,6 @@ class MovieAdapter(private val activity: Activity, private val callback: MovieCa
 
         holder.bindItem(content)
         holder.itemView.layoutParams.width = width - 90.toPx(holder.itemView.context)
-        //callback.listenerContent(holder.adapterPosition)
     }
 }
 
