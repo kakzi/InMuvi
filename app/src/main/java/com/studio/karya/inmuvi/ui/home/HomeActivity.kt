@@ -1,7 +1,6 @@
 package com.studio.karya.inmuvi.ui.home
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.studio.karya.inmuvi.R
@@ -22,7 +21,11 @@ class HomeActivity : AppCompatActivity() {
         init()
 
         if (savedInstanceState != null) {
-            savedInstanceState.getInt(SELECTED_MENU)
+            if (savedInstanceState.getInt(SELECTED_MENU) == R.id.actionMovie) {
+                headTitle.text = getString(R.string.head_title_movie)
+            } else {
+                headTitle.text = getString(R.string.head_title_tv)
+            }
         } else {
             bottomNav.selectedItemId = R.id.actionMovie
         }
@@ -59,8 +62,8 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        super.onSaveInstanceState(outState, outPersistentState)
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
         outState?.putInt(SELECTED_MENU, bottomNav.selectedItemId)
     }
 }
