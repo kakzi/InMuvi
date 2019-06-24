@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.studio.karya.inmuvi.R
-import com.studio.karya.inmuvi.ui.movie.ContentFragment
-import com.studio.karya.inmuvi.ui.movie.ContentFragment.Companion.CONTENT_TYPE
+import com.studio.karya.inmuvi.ui.content.ContentFragment
+import com.studio.karya.inmuvi.ui.content.ContentFragment.Companion.CONTENT_TYPE
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {

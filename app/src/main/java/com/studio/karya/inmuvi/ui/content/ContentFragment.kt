@@ -1,4 +1,4 @@
-package com.studio.karya.inmuvi.ui.movie
+package com.studio.karya.inmuvi.ui.content
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ import org.jetbrains.anko.support.v4.ctx
 
 class ContentFragment : Fragment() {
 
-    private lateinit var adapter: MovieAdapter
+    private lateinit var adapter: ContentAdapter
     private lateinit var viewModel: ContentViewModel
 
     companion object {
@@ -43,25 +43,25 @@ class ContentFragment : Fragment() {
         activity?.let {
             viewModel = ViewModelProviders.of(this).get(ContentViewModel::class.java)
 
-            adapter = MovieAdapter(it)
+            adapter = ContentAdapter(it)
 
             val typeContent = arguments?.getString(CONTENT_TYPE)
             if (typeContent == "movie") {
-                adapter.setListContent(viewModel.getMovie())
+                adapter.setListContent(viewModel.getMovie(), "movie")
             } else {
-                adapter.setListContent(viewModel.getTv())
+                adapter.setListContent(viewModel.getTv(), "tv")
             }
 
             val snapHelper = PagerSnapHelper()
-            snapHelper.attachToRecyclerView(rv_movie)
+            snapHelper.attachToRecyclerView(rv_content)
 
             val layoutManager = LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false)
 
-            rv_movie.layoutManager = layoutManager
-            rv_movie.setHasFixedSize(true)
-            rv_movie.adapter = adapter
+            rv_content.layoutManager = layoutManager
+            rv_content.setHasFixedSize(true)
+            rv_content.adapter = adapter
 
-            rv_movie.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            rv_content.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)

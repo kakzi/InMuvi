@@ -5,6 +5,7 @@ import android.util.DisplayMetrics
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
+import kotlin.math.roundToInt
 
 fun View.visible() {
     visibility = View.VISIBLE
@@ -19,7 +20,7 @@ fun View.gone() {
 }
 
 fun Int.toPx(context: Context) =
-    Math.round(this * (context.resources.displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
+    (this * (context.resources.displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)).roundToInt()
 
 fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
     val layoutManager = recyclerView.layoutManager ?: return RecyclerView.NO_POSITION

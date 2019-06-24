@@ -1,7 +1,6 @@
-package com.studio.karya.inmuvi.ui.movie
+package com.studio.karya.inmuvi.ui.content
 
 import android.app.Activity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,20 +9,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.studio.karya.inmuvi.R
 import com.studio.karya.inmuvi.data.ContentEntity
+import com.studio.karya.inmuvi.ui.detail.DetailActivity
+import com.studio.karya.inmuvi.ui.detail.DetailActivity.Companion.CONTENT_IDS
+import com.studio.karya.inmuvi.ui.detail.DetailActivity.Companion.CONTENT_TYPE
 import com.studio.karya.inmuvi.utils.toPx
 import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 
-class MovieAdapter(private val activity: Activity) : RecyclerView.Adapter<Holder>() {
+class ContentAdapter(private val activity: Activity) : RecyclerView.Adapter<Holder>() {
 
     private val mContent: MutableList<ContentEntity> = mutableListOf()
+    private lateinit var type: String
 
-    private fun getListContent(): MutableList<ContentEntity>{
+    private fun getListContent(): MutableList<ContentEntity> {
         return mContent
     }
 
-    fun setListContent(contentEntity: MutableList<ContentEntity>){
+    fun setListContent(contentEntity: MutableList<ContentEntity>, type: String) {
         mContent.clear()
         mContent.addAll(contentEntity)
+        this.type = type
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -43,6 +48,12 @@ class MovieAdapter(private val activity: Activity) : RecyclerView.Adapter<Holder
 
         holder.bindItem(content)
         holder.itemView.layoutParams.width = width - 90.toPx(holder.itemView.context)
+        holder.itemView.setOnClickListener {
+            activity.startActivity<DetailActivity>(
+                CONTENT_IDS to content.contentId,
+                CONTENT_TYPE to type
+            )
+        }
     }
 }
 

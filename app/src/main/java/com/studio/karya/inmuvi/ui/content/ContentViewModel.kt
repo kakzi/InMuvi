@@ -1,4 +1,4 @@
-package com.studio.karya.inmuvi.ui.movie
+package com.studio.karya.inmuvi.ui.content
 
 import androidx.lifecycle.ViewModel
 import com.studio.karya.inmuvi.data.ContentEntity
