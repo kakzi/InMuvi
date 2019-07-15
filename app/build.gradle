@@ -14,6 +14,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField 'String', "KEY", "\"e2f0a4994f340154ff8b31c65f8f9c5e\""
+        buildConfigField 'String', "BASE_URL", "\"https://api.themoviedb.org\""
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -46,7 +48,7 @@ dependencies {
     //Dependencies for RxJava and RxAndroid
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-    
+
     //Dependencies for Architecture Component
     implementation "androidx.room:room-runtime:$roomVersion"
     annotationProcessor "androidx.room:room-compiler:$roomVersion"
