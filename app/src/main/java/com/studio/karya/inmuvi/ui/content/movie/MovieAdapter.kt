@@ -1,4 +1,4 @@
-package com.studio.karya.inmuvi.ui.content
+package com.studio.karya.inmuvi.ui.content.movie
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -7,28 +7,27 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.studio.karya.inmuvi.BuildConfig.BASE_URL_IMAGE
 import com.studio.karya.inmuvi.R
-import com.studio.karya.inmuvi.data.ContentEntity
+import com.studio.karya.inmuvi.data.source.remote.response.Movie
 import com.studio.karya.inmuvi.ui.detail.DetailActivity
-import com.studio.karya.inmuvi.ui.detail.DetailActivity.Companion.CONTENT_IDS
-import com.studio.karya.inmuvi.ui.detail.DetailActivity.Companion.CONTENT_TYPE
+import com.studio.karya.inmuvi.ui.detail.DetailActivity.Companion.CONTENT
 import com.studio.karya.inmuvi.utils.toPx
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 
-class ContentAdapter(private val activity: Activity) : RecyclerView.Adapter<Holder>() {
+class MovieAdapter(private val activity: Activity, private val callback: MovieCallback) :
+    RecyclerView.Adapter<Holder>() {
 
-    private val mContent: MutableList<ContentEntity> = mutableListOf()
-    private lateinit var type: String
+    private val listMovie: MutableList<Movie> = mutableListOf()
 
-    private fun getListContent(): MutableList<ContentEntity> {
-        return mContent
+    private fun getListMovie(): MutableList<Movie> {
+        return listMovie
     }
 
-    fun setListContent(contentEntity: MutableList<ContentEntity>, type: String) {
-        mContent.clear()
-        mContent.addAll(contentEntity)
-        this.type = type
+    fun setListMovie(listMovie: MutableList<Movie>) {
+        this.listMovie.clear()
+        this.listMovie.addAll(listMovie)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -39,32 +38,43 @@ class ContentAdapter(private val activity: Activity) : RecyclerView.Adapter<Hold
         )
     }
 
-    override fun getItemCount(): Int = getListContent().size
+    override fun getItemCount(): Int = getListMovie().size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
-        val content = getListContent()[position]
+        val content = getListMovie()[position]
         val width = holder.itemView.context.resources.displayMetrics.widthPixels
+
+        callback.setTitleMovie(getListMovie())
+
+        val movie = Movie(
+            content.id,
+            content.title,
+            content.overview,
+            content.releaseDate,
+            content.voteAverage,
+            content.popularity,
+            content.posterPath,
+            content.backdropPath
+        )
 
         holder.bindItem(content)
         holder.itemView.layoutParams.width = width - 90.toPx(holder.itemView.context)
         holder.itemView.setOnClickListener {
             activity.startActivity<DetailActivity>(
-                CONTENT_IDS to content.contentId,
-                CONTENT_TYPE to type
+                CONTENT to movie
             )
         }
     }
 }
 
 class Holder(private val view: View) : RecyclerView.ViewHolder(view) {
-
     private val imgPoster = view.find<ImageView>(R.id.imgPoster)
 
-    fun bindItem(contentEntity: ContentEntity) {
+    fun bindItem(movieEntity: Movie) {
         Glide
             .with(view.context)
-            .load(contentEntity.imgPoster)
+            .load(BASE_URL_IMAGE + movieEntity.posterPath)
             .into(imgPoster)
     }
 }

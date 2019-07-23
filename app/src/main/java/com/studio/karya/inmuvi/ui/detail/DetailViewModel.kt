@@ -1,12 +1,10 @@
 package com.studio.karya.inmuvi.ui.detail
 
 import androidx.lifecycle.ViewModel
-import com.studio.karya.inmuvi.data.ContentEntity
-import com.studio.karya.inmuvi.utils.Data
 
 class DetailViewModel : ViewModel() {
 
-    private lateinit var content: ContentEntity
+    /*private lateinit var content: ContentEntity
     private lateinit var contentId: String
 
     fun getContent(type: String): ContentEntity {
@@ -21,5 +19,5 @@ class DetailViewModel : ViewModel() {
 
     fun setContentId(contentId: String) {
         this.contentId = contentId
-    }
+    }*/
 }

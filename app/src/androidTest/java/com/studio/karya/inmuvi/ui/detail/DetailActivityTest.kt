@@ -10,7 +10,6 @@ import androidx.test.rule.ActivityTestRule
 import com.studio.karya.inmuvi.R
 import com.studio.karya.inmuvi.ui.detail.DetailActivity.Companion.CONTENT_IDS
 import com.studio.karya.inmuvi.ui.detail.DetailActivity.Companion.CONTENT_TYPE
-import com.studio.karya.inmuvi.utils.Data
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

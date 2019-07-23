@@ -1,7 +1,6 @@
 package com.studio.karya.inmuvi.ui.detail
 
 import com.studio.karya.inmuvi.R
-import com.studio.karya.inmuvi.data.ContentEntity
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before

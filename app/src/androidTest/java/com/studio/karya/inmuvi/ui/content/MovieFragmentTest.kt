@@ -12,12 +12,12 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class ContentFragmentTest {
+class MovieFragmentTest {
 
     @Rule
     @JvmField
     val activityRule = ActivityTestRule(SingleFragmentActivity::class.java)
-    private val contentFragment = ContentFragment()
+    private val contentFragment = MovieFragment()
 
     @Before
     fun setUp() {

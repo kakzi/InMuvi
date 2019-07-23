@@ -1,16 +1,18 @@
 package com.studio.karya.inmuvi.ui.content
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.studio.karya.inmuvi.data.ContentEntity
-import com.studio.karya.inmuvi.utils.Data
+import com.studio.karya.inmuvi.data.source.ContentRepository
+import com.studio.karya.inmuvi.data.source.remote.response.MovieResponse
+import com.studio.karya.inmuvi.data.source.remote.response.TvResponse
 
-class ContentViewModel : ViewModel() {
+class ContentViewModel(private val contentRepository: ContentRepository) : ViewModel() {
 
-    fun getMovie(): MutableList<ContentEntity> {
-        return Data().generateMovie()
+    fun getMovie(): LiveData<MovieResponse> {
+        return contentRepository.getListMovie()
     }
 
-    fun getTv(): MutableList<ContentEntity> {
-        return Data().generateTv()
+    fun getTv(): LiveData<TvResponse> {
+        return contentRepository.getListTv()
     }
 }

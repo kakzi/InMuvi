@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.studio.karya.inmuvi.R
-import com.studio.karya.inmuvi.ui.content.ContentFragment
-import com.studio.karya.inmuvi.ui.content.ContentFragment.Companion.CONTENT_TYPE
+import com.studio.karya.inmuvi.ui.content.movie.MovieFragment
+import com.studio.karya.inmuvi.ui.content.tv.TvFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -32,21 +32,16 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        val bundle = Bundle()
         bottomNav.setOnNavigationItemSelectedListener { item ->
             var fragment: Fragment? = null
             when (item.itemId) {
                 R.id.actionMovie -> {
-                    bundle.putString(CONTENT_TYPE, "movie")
-                    val movie = ContentFragment().newInstance()
-                    movie.arguments = bundle
+                    val movie = MovieFragment().newInstance()
                     fragment = movie
                     headTitle.text = getString(R.string.head_title_movie)
                 }
                 R.id.actionTv -> {
-                    bundle.putString(CONTENT_TYPE, "tv")
-                    val tv = ContentFragment().newInstance()
-                    tv.arguments = bundle
+                    val tv = TvFragment().newInstance()
                     fragment = tv
                     headTitle.text = getString(R.string.head_title_tv)
                 }
