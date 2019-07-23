@@ -3,19 +3,18 @@ package com.studio.karya.inmuvi.ui.detail
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ShareCompat
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.studio.karya.inmuvi.BuildConfig.BASE_URL_IMAGE
 import com.studio.karya.inmuvi.R
-import com.studio.karya.inmuvi.data.source.remote.response.Movie
+import com.studio.karya.inmuvi.data.source.remote.response.Content
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
 
 class DetailActivity : AppCompatActivity() {
 
     companion object {
-        const val CONTENT = "Movie"
+        const val CONTENT = "Content"
         const val CONTENT_TYPE = "ContentType"
     }
 
@@ -35,13 +34,13 @@ class DetailActivity : AppCompatActivity() {
         val bundle = intent.extras
 
         bundle?.apply {
-            val movie = getParcelable<Movie>(CONTENT)
+            val movie = getParcelable<Content>(CONTENT)
             populateContent(movie)
         }
         btnAction()
     }
 
-    private fun populateContent(movie: Movie) {
+    private fun populateContent(movie: Content) {
         titleContent.text = movie.title
         dateContent.text = movie.releaseDate
         userScore.text = String.format("User Score: %s", movie.voteAverage)

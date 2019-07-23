@@ -1,4 +1,4 @@
-package com.studio.karya.inmuvi.ui.content.movie
+package com.studio.karya.inmuvi.ui.content
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,41 +12,48 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.studio.karya.inmuvi.R
-import com.studio.karya.inmuvi.data.source.remote.response.Movie
-import com.studio.karya.inmuvi.data.source.remote.response.MovieResponse
-import com.studio.karya.inmuvi.ui.content.ContentViewModel
+import com.studio.karya.inmuvi.data.source.remote.response.Content
+import com.studio.karya.inmuvi.data.source.remote.response.ContentResponse
+import com.studio.karya.inmuvi.ui.detail.DetailActivity.Companion.CONTENT_TYPE
 import com.studio.karya.inmuvi.utils.getSnapPosition
 import com.studio.karya.inmuvi.viewModel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_content.*
 import org.jetbrains.anko.support.v4.ctx
 
-class MovieFragment : Fragment(), MovieCallback {
+class ContentFragment : Fragment(), ContentCallback {
 
-    private lateinit var adapter: MovieAdapter
+    private lateinit var adapter: ContentAdapter
     private lateinit var viewModel: ContentViewModel
 
     var snapPosition = RecyclerView.NO_POSITION
     val snapHelper = PagerSnapHelper()
 
     fun newInstance(): Fragment {
-        return MovieFragment()
+        return ContentFragment()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_content, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         activity?.let {
             viewModel = obtainViewModel(it)
-            adapter = MovieAdapter(it, this)
+            adapter = ContentAdapter(it, this)
 
-            viewModel.getMovie().observe(this, getMovie)
+            when (arguments?.getString(CONTENT_TYPE)) {
+                "movie" -> {
+                    viewModel.getMovie().observe(this, getMovie)
+                }
+                else -> {
+                    viewModel.getTv().observe(this, getTv)
+                }
+            }
 
             val layoutManager = LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false)
             rv_content.layoutManager = layoutManager
@@ -62,14 +69,21 @@ class MovieFragment : Fragment(), MovieCallback {
         return ViewModelProviders.of(activity, factory).get(ContentViewModel::class.java)
     }
 
-    private val getMovie = Observer<MovieResponse> {
+    private val getMovie = Observer<ContentResponse> {
         it.let {
-            adapter.setListMovie(it.movieList)
+            adapter.setListContent(it.content)
             adapter.notifyDataSetChanged()
         }
     }
 
-    override fun setTitleMovie(movie: MutableList<Movie>) {
+    private val getTv = Observer<ContentResponse> {
+        it.let {
+            adapter.setListContent(it.content)
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    override fun setTitleContent(content: MutableList<Content>) {
         rv_content.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -77,7 +91,12 @@ class MovieFragment : Fragment(), MovieCallback {
                 val snapPositionChanged = snapPosition != snapPositions
                 if (snapPositionChanged) {
                     snapPosition = snapPositions
-                    title.text = movie[snapPositions].title
+
+                    if (arguments?.getString(CONTENT_TYPE) == "movie") {
+                        title.text = content[snapPositions].title
+                    } else {
+                        title.text = content[snapPositions].titleTv
+                    }
                 }
             }
         })

@@ -1,5 +1,6 @@
 package com.studio.karya.inmuvi.data.source.remote
 
+import com.studio.karya.inmuvi.data.source.remote.response.ContentResponse
 import com.studio.karya.inmuvi.data.source.remote.response.MovieResponse
 import com.studio.karya.inmuvi.data.source.remote.response.TvResponse
 import io.reactivex.Observable
@@ -11,10 +12,10 @@ interface Service {
     @GET("/3/discover/movie")
     fun getListMovie(
         @Query("api_key") api_key: String
-    ): Observable<MovieResponse>
+    ): Observable<ContentResponse>
 
     @GET("/3/discover/tv")
     fun getListTv(
         @Query("api_key") api_key: String
-    ): Observable<TvResponse>
+    ): Observable<ContentResponse>
 }

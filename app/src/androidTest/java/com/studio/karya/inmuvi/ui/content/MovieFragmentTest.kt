@@ -5,6 +5,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.rule.ActivityTestRule
 import com.studio.karya.inmuvi.R
 import com.studio.karya.inmuvi.testing.SingleFragmentActivity
+import com.studio.karya.inmuvi.ui.content.movie.MovieFragment
 import com.studio.karya.inmuvi.utils.RecyclerViewItemCountAssertion
 import org.junit.After
 import org.junit.Before

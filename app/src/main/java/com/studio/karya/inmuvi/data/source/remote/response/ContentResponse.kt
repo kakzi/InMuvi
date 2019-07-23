@@ -4,18 +4,21 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-data class MovieResponse(
+data class ContentResponse(
     @SerializedName("results")
-    val movieList: MutableList<Content>
+    val content: MutableList<Content>
 )
 
 @Parcelize
-data class Movie(
+data class Content(
     @SerializedName("id")
     val id: String,
 
     @SerializedName("title")
     val title: String?,
+
+    @SerializedName("name") //tv
+    val titleTv: String?,
 
     @SerializedName("overview")
     val overview: String?,
@@ -23,8 +26,8 @@ data class Movie(
     @SerializedName("release_date")
     val releaseDate: String?,
 
-    /*@SerializedName("first_air_date") //tv
-    val releaseDateTv: String?,*/
+    @SerializedName("first_air_date") //tv
+    val releaseDateTv: String?,
 
     @SerializedName("vote_average")
     val voteAverage: String?,

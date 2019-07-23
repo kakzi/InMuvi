@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.studio.karya.inmuvi.BuildConfig.API_KEY
 import com.studio.karya.inmuvi.data.source.remote.repository.RemoteRepository
 import com.studio.karya.inmuvi.data.source.remote.repository.RepositoryCallback
+import com.studio.karya.inmuvi.data.source.remote.response.ContentResponse
 import com.studio.karya.inmuvi.data.source.remote.response.MovieResponse
 import com.studio.karya.inmuvi.data.source.remote.response.TvResponse
 
@@ -26,10 +27,10 @@ class ContentRepository() : ContentDataSource {
         return instance
     }
 
-    override fun getListMovie(): LiveData<MovieResponse> {
-        val movieResult: MutableLiveData<MovieResponse> = MutableLiveData()
-        remoteRepository.getListMovie(API_KEY, object: RepositoryCallback<MovieResponse>{
-            override fun onDataLoaded(data: MovieResponse) {
+    override fun getListMovie(): LiveData<ContentResponse> {
+        val movieResult: MutableLiveData<ContentResponse> = MutableLiveData()
+        remoteRepository.getListMovie(API_KEY, object: RepositoryCallback<ContentResponse>{
+            override fun onDataLoaded(data: ContentResponse) {
                 movieResult.postValue(data)
             }
 
@@ -39,10 +40,10 @@ class ContentRepository() : ContentDataSource {
         return movieResult
     }
 
-    override fun getListTv(): LiveData<TvResponse> {
-        val tvResult: MutableLiveData<TvResponse> = MutableLiveData()
-        remoteRepository.getListTv(API_KEY, object : RepositoryCallback<TvResponse>{
-            override fun onDataLoaded(data: TvResponse) {
+    override fun getListTv(): LiveData<ContentResponse> {
+        val tvResult: MutableLiveData<ContentResponse> = MutableLiveData()
+        remoteRepository.getListTv(API_KEY, object : RepositoryCallback<ContentResponse>{
+            override fun onDataLoaded(data: ContentResponse) {
                 tvResult.postValue(data)
             }
 
